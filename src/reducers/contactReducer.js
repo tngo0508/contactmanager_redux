@@ -1,26 +1,15 @@
-import { GET_CONTACTS, DELETE_CONTACTS, ADD_CONTACTS } from '../actions/types';
+import {
+  GET_CONTACTS,
+  DELETE_CONTACTS,
+  ADD_CONTACTS,
+  GET_CONTACT,
+  UPDATE_CONTACTS,
+} from "../actions/types";
+import { bindActionCreators } from "redux";
 
 const initialState = {
-  contacts: [
-    {
-      id: 1,
-      name: 'John Doe',
-      email: 'john@gmail.com',
-      phone: '555-555-5555'
-    },
-    {
-      id: 2,
-      name: 'Karen Williams',
-      email: 'karen@gmail.com',
-      phone: '444-444-4444'
-    },
-    {
-      id: 3,
-      name: 'Henry Johnson',
-      email: 'henry@gmail.com',
-      phone: '333-333-333'
-    }
-  ]
+  contacts: [],
+  contact: {},
 };
 
 export default function (state = initialState, action) {
@@ -28,17 +17,24 @@ export default function (state = initialState, action) {
     case GET_CONTACTS:
       return {
         ...state,
-        contacts: action.payload
+        contacts: action.payload,
+      };
+    case GET_CONTACT:
+      return {
+        ...state,
+        contact: action.payload,
       };
     case DELETE_CONTACTS:
       return {
         ...state,
-        contacts: state.contacts.filter(contact => contact.id !== action.payload)
+        contacts: state.contacts.filter(
+          (contact) => contact.id !== action.payload
+        ),
       };
     case ADD_CONTACTS:
       return {
         ...state,
-        contacts: [action.payload, ...state.contacts]
+        contacts: [action.payload, ...state.contacts],
       };
     default:
       return state;
